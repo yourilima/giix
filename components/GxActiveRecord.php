@@ -712,4 +712,22 @@ abstract class GxActiveRecord extends CActiveRecord {
 		return null;
 	}
 
+	/**
+	 * Override save method as some behaviours invalidates the save even though it is valid
+	 * @param  boolean $runValidation
+	 * @param  array  $attributes
+	 * @return boolean whether the saving succeeds
+	 */
+	public function save($runValidation=true, $attributes=null)
+	{
+		if (!parent::save()) {
+			if (empty($this->errors))
+				return true;
+			else
+				return false;
+		} else {
+			return true;
+		}
+	}
+
 }
