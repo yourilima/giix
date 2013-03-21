@@ -720,7 +720,7 @@ abstract class GxActiveRecord extends CActiveRecord {
 	 */
 	public function save($runValidation=true, $attributes=null)
 	{
-		if (!parent::save()) {
+		if (!parent::save($runValidation, $attributes)) {
 			if (empty($this->errors))
 				return true;
 			else
