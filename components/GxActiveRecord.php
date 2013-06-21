@@ -721,10 +721,13 @@ abstract class GxActiveRecord extends CActiveRecord {
 	public function save($runValidation=true, $attributes=null)
 	{
 		if (!parent::save($runValidation, $attributes)) {
-			if (empty($this->errors))
+			if (empty($this->errors)) {
 				return true;
-			else
+			}
+			else {
+				Yii::log('Error saving model ' . get_class($this) . ': ' . print_r($this->errors, true) . ' with attributes: ' . print_r($this->attributes, true), 'error');
 				return false;
+			}
 		} else {
 			return true;
 		}
