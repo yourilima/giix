@@ -725,7 +725,8 @@ abstract class GxActiveRecord extends CActiveRecord {
 				return true;
 			}
 			else {
-				Yii::log('Error saving model ' . get_class($this) . ': ' . print_r($this->errors, true) . ' with attributes: ' . print_r($this->attributes, true), 'error');
+				$e = new Exception();
+				Yii::log('Error saving model ' . get_class($this) . ': ' . print_r($this->errors, true) . ' with attributes: ' . print_r($this->attributes, true).' '.$e->getTraceAsString(), 'error');
 				return false;
 			}
 		} else {
