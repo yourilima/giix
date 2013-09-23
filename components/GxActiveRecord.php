@@ -734,4 +734,15 @@ abstract class GxActiveRecord extends CActiveRecord {
 		}
 	}
 
+	public function delete()
+	{
+		if (!parent::delete()) {
+			if (isset($this->deleted) && $this->deleted)
+				return true;
+			else
+				return false;
+		} else {
+			return true;
+		}
+	}
 }
