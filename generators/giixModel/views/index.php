@@ -75,7 +75,7 @@ $('.form .row.model-class').toggle($('#{$class}_tableName').val().substring($('#
 		<?php $form->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model'=>$model,
 			'attribute'=>'tableName',
-			'source'=>Yii::app()->hasComponent($model->connectionId) ? array_keys(Yii::app()->{$model->connectionId}->schema->getTables()) : array(),
+			'source'=>Yii::app()->hasComponent($model->connectionId) ? array_keys(Yii::app()->{$model->connectionId}->schema->getTables()) + array('*') : array(),
 			'options'=>array(
 				'delay'=>100,
 				'focus'=>'js:function(event,ui){
