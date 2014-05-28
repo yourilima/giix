@@ -51,7 +51,7 @@ class GiixModelCode extends ModelCode {
 			$tableName = $this->tableName;
 		}
 		if ($tableName[strlen($tableName) - 1] === '*') {
-			$tables = Yii::app()->db->schema->getTables($schema);
+			$tables = Yii::app()->{$this->connectionId}->schema->getTables($schema);
 			if ($this->tablePrefix != '') {
 				foreach ($tables as $i => $table) {
 					if (strpos($table->name, $this->tablePrefix) !== 0)
