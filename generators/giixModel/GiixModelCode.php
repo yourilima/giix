@@ -92,6 +92,7 @@ class GiixModelCode extends ModelCode {
 				'relations' => isset($this->relations[$className]) ? $this->relations[$className] : array(),
 				'representingColumn' => $this->getRepresentingColumn($table), // The representing column for the table.
 				'pivotModels' => $pivotModels, // The pivot models.
+				'connectionId'=>$this->connectionId,
 			);
 			// Setup base model information.
 			$this->baseModelPath = $this->modelPath . '._base';

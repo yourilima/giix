@@ -128,4 +128,14 @@ abstract class <?php echo $this->baseModelClass; ?> extends <?php echo $this->ba
 			'criteria' => $criteria,
 		));
 	}
+<?php if($connectionId!='db'):?>
+
+	/**
+	* @return CDbConnection the database connection used for this class
+	*/
+	public function getDbConnection()
+	{
+		return Yii::app()-><?php echo $connectionId ?>;
+	}
+<?php endif?>
 }
