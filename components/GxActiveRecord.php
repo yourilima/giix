@@ -33,6 +33,39 @@ abstract class GxActiveRecord extends CActiveRecord {
 		return parent::model($className);
 	}
 
+	public function init()
+	{
+		$events = $this->eventHandlers();
+		foreach ($events as $event => $handler) {
+			if (is_array($handler) && is_array($handler[0])) {
+				foreach ($handler as $handle) {
+					$this->attachEventHandler($event,$handle);
+				}
+			} else {
+				$this->attachEventHandler($event,$handler);
+			}
+		}
+		parent::init();
+	}
+
+
+	/**
+	 * This method should be overridden to register eventhandlers in a centralized way.
+	 * format should be:
+	 * [
+	 *  'onEventName'=>handler
+	 * ]
+	 *
+	 * handler must be a valid php callback
+	 *
+	 * @return array
+	 * @see attachEventHandler
+	 */
+	public function eventHandlers()
+	{
+		return [];
+	}
+
 	/**
 	 * This method should be overridden to declare related pivot models for each MANY_MANY relationship.
 	 * The pivot model is used by {@link saveWithRelated} and by {@link saveMultiple}.
