@@ -759,7 +759,7 @@ abstract class GxActiveRecord extends CActiveRecord {
 			}
 			else {
 				$e = new Exception();
-				Yii::log('Error saving model ' . get_class($this) . ': ' . json_encode($this->errors) . ' with attributes: ' . json_encode($this->attributes) . ' ' . $e->getTraceAsString(), 'error');
+				Yii::log('Error saving model ' . get_class($this) . ': ' . json_encode($this->errors) . ' with attributes: ' . json_encode($this->getSafeAttributes()) . ' ' . $e->getTraceAsString(), 'error');
 				return false;
 			}
 		} else {
@@ -777,5 +777,19 @@ abstract class GxActiveRecord extends CActiveRecord {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * @param array $includes
+	 *
+	 * @return array
+	 */
+	public function getSafeAttributes($includes = []) {
+		// Whitelist solution, copied from protected/modules/sud_user/models/User.php
+		$data = $this->attributes;
+		if (isset($data['id'])) {
+			return ['id' => $data['id']];
+		}
+		return [];
 	}
 }
